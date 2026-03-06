@@ -1,0 +1,27 @@
+﻿Category,Qty,Item Name,Purpose / Notes,Estimated Price (EGP),link
+MCU & Logic,2,ESP32-S3-1N16R8 WiFi + Bluetooth,S3 Alpha & Beta (Audio Buffering & Interrupts),900,https://store.fut-electronics.com/collections/all/products/esp32-s3-devkitc-1-copy?variant=43309674496109
+MCU & Logic,1,ESP32-S3 (DevKitC-1),Master WROOM (Game Engine & API Server),380,https://store.fut-electronics.com/collections/all/products/esp32-s3-devkitc-1?variant=42265460179053
+MCU & Logic,1,4 Channels I2C Logic Level Converter,3.3V to 5V shifter for the LED strip data line,45,https://store.fut-electronics.com/collections/all/products/logic-level-converter-1?variant=40470370025581
+MCU & Logic,1,Micro SD Card Module (5V Compatible),Reads audio files and local player JSON data,60,https://www.ram-e-shop.com/ar/shop/kit-sd-card-module-micro-sd-card-module-for-arduino-or-mcu-7056
+MCU & Logic,1,Micro SD Card 32 GB HC10,High-speed storage for web assets and audio,375,https://www.ram-e-shop.com/ar/shop/micro-sd-32gb-micro-sd-card-32gb-hc10-krt-dhkr-mymwry-micro-sd-s-32-jyjbyt-6298
+Sensors & Audio,4,INMP441 MEMS Microphone - I2S,Corner acoustic ToF mapping,1120,https://store.fut-electronics.com/collections/all/products/inmp441-mems-microphone-i2s?variant=43298631417965
+Sensors & Audio,10,Piezo Sensor Element 35mm,Vibration sensing and acoustic ping emission,350,https://store.fut-electronics.com/collections/all/products/piezo-sensor-element-35mm?variant=40109101547629
+Sensors & Audio,10,Vibration Switch Module SW1801P,Using the LM393 chips for digital hardware interrupts,250,https://makerselectronics.com/product/vibration-switch-module-sw1801p/
+Sensors & Audio,1,BME680 Environmental Sensor,Speed of Sound calculation & enclosure thermal monitoring,490,https://store.fut-electronics.com/collections/all/products/bme680-environmental-sensor-pressure-temperature-humidity-voc-gas?variant=30239052955757
+Sensors & Audio,1,MAX98357A I2S Amplifier (or PAM8403),Required to drive the 3W speaker safely from the ESP32,120,https://makerselectronics.com/product/max98357a-i2s-amplifier-module/
+Sensors & Audio,1,YD66-2 Speaker 8 Ohm 3W,Game announcer and UI sound effects,24,https://makerselectronics.com/product/yd66-2-speaker-8%cf%89-3w-66mmx21mm/
+Power & Wiring,1,Power Supply 5V 15A,Main heavy-duty power for LEDs and system,325,https://makerselectronics.com/product/power-supply-5v-15a/
+Power & Wiring,1,AC-04 AC Power Socket 3 Pin Male,Professional mains connection for the Control Box,9,https://makerselectronics.com/product/socket-3-pin-male-connector-10a-250v/
+Power & Wiring,1,Ac Power Cord Cable 1.75m,Plugs the Control Box into the wall,45,https://www.ram-e-shop.com/ar/shop/power-cable-comp-ac-power-cord-cable-1-75m-kbl-bwr-kbl-kmbywtr-twl-1-75-mtr-5621
+Power & Wiring,1,WS2812 RGB LED Strip 60LED/m (5m),Visual scoreboard and game state feedback,750,https://makerselectronics.com/product/ws2812-addressable-rgb-waterproof-le/
+Power & Wiring,20,UTP CAT5E Ethernet Cable (Meters),Twisted pairs for hardwired UART & sensor data,100,https://makerselectronics.com/product/utp-cat5e-tia-eia-ethernet-cable/
+Power & Wiring,5,Stranded Wire 1.5mm Red (Meters),15A Main Positive power rail under the table,75,https://makerselectronics.com/product/stranded-wire-1-5mm%c2%b2-1meter/?attribute_color=Red
+Power & Wiring,5,Stranded Wire 1.5mm Black (Meters),15A Main Ground power rail under the table,75,https://makerselectronics.com/product/stranded-wire-1-5mm%c2%b2-1meter/?attribute_color=Black
+Power & Wiring,5,Audio Speaker Cable 2x2mm (Meters),Power injection lines to prevent LED voltage drop,65,https://makerselectronics.com/product/audio-speaker-cable-2x2mm/
+Cooling & Safety,8,Aluminum Heatsink HS.1 (9x9x12mm),Thermal dissipation for the S3 chips,200,https://www.ram-e-shop.com/ar/shop/hs1-aluminum-heatsink-hs-1-size-9x9x12-mm-mbrd-hrry-hyt-synk-lwmnywm-5979
+Cooling & Safety,1,MX-6 ARCTIC Thermal Paste 2g,High-performance heat transfer (center of chip),225,https://makerselectronics.com/product/mx-6-arctic-grey-high-copy-thermal-paste-2g/
+Cooling & Safety,1,Super Glue 3.2g,Permanent heatsink anchoring (corners of chip),26,https://www.ram-e-shop.com/ar/shop/glue-3gm-super-glue-3-2g-lsq-swbr-jlw-lsrwkh-3-2-jm-6930
+Cooling & Safety,3,5v dc 3010 30x30x10 fan,Active emergency airflow for the Control Box,300,Active emergency airflow for the Control Box
+Cooling & Safety,3,IRF520 MOSFET or TIP120 Transistor,Allows ESP32 to PWM control the 5V fan silently,60,https://makerselectronics.com/product/irf520-n-channel-power-mosfet-to-220/
+Components,10,Carbon Resistor 1M Ohm 0.25W,Bleed resistors for the 35mm piezos,10,https://makerselectronics.com/product/carbon-resistor-1m%cf%89-0-25w-through-hol/
+Components,10,Zener Diode 5.1V 0.5W,Overvoltage spike protection for ESP32 inputs,23,https://makerselectronics.com/product/zener-diode-5-1v-0-5w/
