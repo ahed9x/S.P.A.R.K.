@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SPARK — Smart Ping-Pong Referee</title>
+<style>
+/* ===== RESET & THEME ===== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0d1117;--card:#161b22;--border:#30363d;
+  --txt:#c9d1d9;--muted:#8b949e;
+  --red:#f85149;--blue:#58a6ff;--green:#3fb950;
+  --yellow:#d29922;--teal:#00ffcc;
+}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--txt);min-height:100vh}
+a{color:var(--teal)}
+
+/* ===== LAYOUT ===== */
+.header{text-align:center;padding:18px 0 10px;border-bottom:1px solid var(--border)}
+.header h1{font-size:1.5rem;letter-spacing:4px;color:var(--teal)}
+.header small{color:var(--muted);font-size:.75rem}
+.dash{display:grid;grid-template-columns:1fr 2fr;grid-template-rows:auto 1fr auto;gap:14px;padding:14px;max-width:1100px;margin:0 auto}
+
+/* ===== CARDS ===== */
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px;position:relative;overflow:hidden}
+.card h2{font-size:.8rem;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:12px}
+
+/* ===== SCORE PANEL ===== */
+.score-panel{grid-column:1;grid-row:1}
+.scores{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:14px}
+.score-box{text-align:center;width:100px}
+.score-box .num{font-size:4rem;font-weight:800;line-height:1}
+.score-box.a .num{color:var(--red)}
+.score-box.b .num{color:var(--blue)}
+.score-box .label{font-size:.7rem;text-transform:uppercase;color:var(--muted);margin-top:2px}
+.divider{font-size:2.5rem;color:var(--muted)}
+.serve-ind{text-align:center;font-size:.85rem;color:var(--yellow);margin-top:4px}
+.serve-ind span{display:inline-block;animation:pulse 1.2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.state-badge{display:inline-block;margin-top:10px;padding:4px 14px;border-radius:20px;font-size:.75rem;font-weight:600;background:#1f2937;border:1px solid var(--border);letter-spacing:1px}
+
+/* ===== HEAT MAP ===== */
+.heatmap{grid-column:2;grid-row:1/span 2}
+canvas{width:100%;border-radius:8px;background:#0b1222;display:block}
+
+/* ===== ENV PANEL ===== */
+.env-panel{grid-column:1;grid-row:2}
+.env-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.env-item{text-align:center}
+.env-item .val{font-size:1.6rem;font-weight:700;color:var(--teal)}
+.env-item .unit{font-size:.7rem;color:var(--muted)}
+
+/* ===== EVENT LOG ===== */
+.log-panel{grid-column:1/span 2;grid-row:3;max-height:160px;overflow-y:auto}
+.log-panel ul{list-style:none;font-size:.78rem;color:var(--muted)}
+.log-panel li{padding:3px 0;border-bottom:1px solid #1c2128}
+.log-panel .ts{color:var(--muted);margin-right:6px}
+
+/* ===== CONTROLS ===== */
+.controls{text-align:center;margin-top:12px}
+.btn{border:none;padding:8px 22px;border-radius:8px;font-weight:600;cursor:pointer;font-size:.82rem;margin:0 4px;transition:filter .15s}
+.btn:hover{filter:brightness(1.25)}
+.btn-start{background:var(--green);color:#000}
+.btn-reset{background:var(--red);color:#fff}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:700px){
+  .dash{grid-template-columns:1fr;grid-template-rows:auto auto auto auto}
+  .heatmap{grid-column:1;grid-row:2}
+  .env-panel{grid-row:3}
+  .log-panel{grid-column:1;grid-row:4}
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>⚡ S P A R K</h1>
+  <small>Smart Ping-Pong Automated Referee Kit — Live Dashboard</small>
+</div>
+
+<div class="dash">
+  <!-- SCORE -->
+  <div class="card score-panel">
+    <h2>Score</h2>
+    <div class="scores">
+      <div class="score-box a"><div class="num" id="sA">0</div><div class="label">Player A</div></div>
+      <div class="divider">:</div>
+      <div class="score-box b"><div class="num" id="sB">0</div><div class="label">Player B</div></div>
+    </div>
+    <div class="serve-ind">Serving: <span id="servInd">A ▸</span></div>
+    <div style="text-align:center"><span class="state-badge" id="stateBadge">IDLE</span></div>
+    <div class="controls">
+      <button class="btn btn-start" onclick="sendCmd('start')">New Game</button>
+      <button class="btn btn-reset" onclick="sendCmd('reset')">Reset</button>
+    </div>
+  </div>
+
+  <!-- HEAT MAP -->
+  <div class="card heatmap">
+    <h2>Ball-Landing Heat Map</h2>
+    <canvas id="cvs" width="822" height="457"></canvas>
+  </div>
+
+  <!-- ENVIRONMENT -->
+  <div class="card env-panel">
+    <h2>Environment</h2>
+    <div class="env-grid">
+      <div class="env-item"><div class="val" id="eTemp">--</div><div class="unit">°C</div></div>
+      <div class="env-item"><div class="val" id="eHum">--</div><div class="unit">% RH</div></div>
+      <div class="env-item"><div class="val" id="ePres">--</div><div class="unit">hPa</div></div>
+      <div class="env-item"><div class="val" id="eFan">--</div><div class="unit">Fan %</div></div>
+    </div>
+    <div style="text-align:center;margin-top:12px;font-size:.72rem;color:var(--muted)">
+      Speed of sound: <strong id="eVs">--</strong> m/s
+    </div>
+  </div>
+
+  <!-- EVENT LOG -->
+  <div class="card log-panel">
+    <h2>Event Log</h2>
+    <ul id="logList"></ul>
+  </div>
+</div>
+
+<script>
+/* ===== STATE ===== */
+const STATE_NAMES = ['IDLE','WAIT SERVE','SERVE HIT','SERVE BOUNCED','RALLY','LET','POINT','GAME OVER','DEUCE'];
+const STATE_COLORS = {'RALLY':'#3fb950','LET':'#d29922','POINT':'#3fb950','GAME OVER':'#f85149'};
+let hits = [];        // [{x,y,event}]
+
+/* ===== CANVAS ===== */
+const cvs = document.getElementById('cvs');
+const ctx = cvs.getContext('2d');
+const TW = 2740, TH = 1525;            // table mm
+const SCALE = cvs.width / TW;          // px per mm
+
+function drawTable(){
+  ctx.clearRect(0,0,cvs.width,cvs.height);
+  // Surface
+  ctx.fillStyle = '#0f2318';
+  ctx.fillRect(0,0,cvs.width,cvs.height);
+  // Border
+  ctx.strokeStyle = '#2ea04388';
+  ctx.lineWidth = 2;
+  ctx.strokeRect(1,1,cvs.width-2,cvs.height-2);
+  // Centre line (net)
+  ctx.strokeStyle = '#ffffff44';
+  ctx.lineWidth = 2;
+  ctx.setLineDash([8,6]);
+  let nx = TW/2*SCALE;
+  ctx.beginPath(); ctx.moveTo(nx,0); ctx.lineTo(nx,cvs.height); ctx.stroke();
+  ctx.setLineDash([]);
+  // Labels
+  ctx.fillStyle='#ffffff55';ctx.font='14px sans-serif';ctx.textAlign='center';
+  ctx.fillText('Side A',TW/4*SCALE,cvs.height/2);
+  ctx.fillText('Side B',3*TW/4*SCALE,cvs.height/2);
+  // Net label
+  ctx.fillStyle='#d2992266';ctx.font='11px sans-serif';
+  ctx.fillText('NET',nx,16);
+}
+
+function drawHits(){
+  drawTable();
+  for(const h of hits){
+    let px = h.x * SCALE;
+    let py = h.y * SCALE;
+    let col = h.event==='net'?'rgba(210,153,34,0.7)':
+              h.event==='paddle'?'rgba(0,255,204,0.45)':
+              'rgba(56,255,80,0.5)';
+    ctx.beginPath();
+    ctx.arc(px,py,5,0,Math.PI*2);
+    ctx.fillStyle=col;
+    ctx.fill();
+    // Glow
+    let g=ctx.createRadialGradient(px,py,2,px,py,18);
+    g.addColorStop(0,col);g.addColorStop(1,'transparent');
+    ctx.fillStyle=g;
+    ctx.fillRect(px-18,py-18,36,36);
+  }
+}
+
+drawTable();
+
+/* ===== WEBSOCKET ===== */
+let ws;
+function connect(){
+  const proto = location.protocol==='https:'?'wss':'ws';
+  ws = new WebSocket(`${proto}://${location.host}/ws`);
+  ws.onopen = ()=> addLog('WebSocket connected','var(--green)');
+  ws.onclose = ()=>{ addLog('WebSocket lost — reconnecting…','var(--red)'); setTimeout(connect,2000); };
+  ws.onmessage = (e)=>{
+    try{ const d=JSON.parse(e.data); handleMsg(d); }catch(err){}
+  };
+}
+connect();
+
+/* Fetch historical hits on load */
+fetch('/api/hits').then(r=>r.json()).then(arr=>{
+  for(const h of arr) hits.push({x:h.x,y:h.y,event:'bounce'});
+  drawHits();
+}).catch(()=>{});
+
+function handleMsg(d){
+  if(d.type==='state'){
+    document.getElementById('sA').textContent=d.scoreA;
+    document.getElementById('sB').textContent=d.scoreB;
+    document.getElementById('servInd').textContent=(d.server===0?'A ▸':'◂ B');
+    let sn=STATE_NAMES[d.gameState]||'?';
+    let badge=document.getElementById('stateBadge');
+    badge.textContent=sn;
+    badge.style.borderColor=STATE_COLORS[sn]||'var(--border)';
+    document.getElementById('eTemp').textContent=d.temp.toFixed(1);
+    document.getElementById('eHum').textContent=d.humidity.toFixed(0);
+    document.getElementById('ePres').textContent=d.pressure.toFixed(0);
+    document.getElementById('eFan').textContent=Math.round(d.fanPWM/2.55);
+    document.getElementById('eVs').textContent=d.speedOfSound.toFixed(1);
+  }
+  if(d.type==='hit'){
+    hits.push({x:d.x,y:d.y,event:d.event});
+    if(hits.length>500) hits.shift();
+    drawHits();
+    const evtLabel = d.event==='net'?'Net touch':d.event==='paddle'?'Paddle hit':'Bounce';
+    addLog(`${evtLabel} at (${d.x.toFixed(0)}, ${d.y.toFixed(0)})`,
+           d.event==='net'?'var(--yellow)':'var(--green)');
+  }
+}
+
+/* ===== COMMANDS ===== */
+function sendCmd(cmd){
+  if(!ws||ws.readyState!==1) return;
+  if(cmd==='start') ws.send(JSON.stringify({cmd:'start',firstServer:0}));
+  else ws.send(JSON.stringify({cmd:'reset'}));
+}
+
+/* ===== LOG ===== */
+function addLog(text,color){
+  const ul=document.getElementById('logList');
+  const li=document.createElement('li');
+  const ts=new Date().toLocaleTimeString();
+  li.innerHTML=`<span class="ts">${ts}</span><span style="color:${color||'var(--txt)'}">${text}</span>`;
+  ul.prepend(li);
+  while(ul.children.length>80) ul.removeChild(ul.lastChild);
+}
+</script>
+</body>
+</html>
