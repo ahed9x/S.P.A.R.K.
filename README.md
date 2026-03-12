@@ -22,12 +22,16 @@
 │  2× LM393 Net     │
 └───────────────────┘
 ```
-## Why and how I got the idea?
-Since last summer, I tried to create a ping-pong referee, but it was camera-based, and I downloaded a large dataset (https://lab.osai.ai/) and trained an AI model for weeks, only to fail miserably at the end.
 
-months later, I was waiting for my turn to play, and i thought, "Can I close my eyes and through hearing accuratly tell the score and whichs turn?" So I closed my eyes and was able to accurately tell what was happening all of the time, even when my friend tried to trick me, but he couldn't.
 
-At the moment, I remembered I wanted to create an acoustic camera for the science fair at our school, so I thought, why not create an acoustic ping-pong referee!
+## 💡 Why and how I got the idea?
+**Since last summer, I tried to create a ping-pong referee, but it was camera-based, and I downloaded a large dataset (https://lab.osai.ai/) and trained an AI model for weeks, only to fail miserably at the end.**
+
+**months later, I was waiting for my turn to play, and i thought, "Can I close my eyes and through hearing accuratly tell the score and whichs turn?" So I closed my eyes and was able to accurately tell what was happening all of the time, even when my friend tried to trick me, but he couldn't.**
+
+**At the moment, I remembered I wanted to create an acoustic camera for the science fair at our school, so I thought, why not create an acoustic ping-pong referee!**
+
+
 
 
 ## Quick Start (how to use)
@@ -76,6 +80,24 @@ pio run --target upload     # uploads firmware
 3. Press **New Game** — you're live!
 
 ---
+
+## Wiring and Schematics
+
+![Untitled-2026-03-07-0833 (1)](https://github.com/user-attachments/assets/37bf6b0a-5312-48a7-8d36-304e87b52de0)
+[Schematic_New-Projecterewrewrwer_2026-03-12 (1).pdf](https://github.com/user-attachments/files/25934993/Schematic_New-Projecterewrewrwer_2026-03-12.1.pdf)
+
+
+
+
+
+## 3D models
+
+All models are in the CAD folder https://github.com/ahed9x/S.P.A.R.K./tree/main/cad
+![image](https://github.com/user-attachments/assets/ff99ffbb-f727-4f0a-9f1a-e87f7ed1b32d)
+![image (1)](https://github.com/user-attachments/assets/1c2541c9-c1d7-45f2-b686-679fba55c55a)
+![image (2)](https://github.com/user-attachments/assets/d8f4ef49-822e-4cbb-b0ba-2555748f1e1a)
+
+
 
 ## Directory Layout
 
@@ -211,4 +233,5 @@ Recommended format: **16-bit PCM, mono, 16 kHz** (or 22.05 kHz).
 ## License
 
 MIT — Build cool things. 🏓
+
 
