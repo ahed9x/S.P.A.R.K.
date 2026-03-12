@@ -1,29 +1,36 @@
 # ⚡ SPARK — Smart Ping-Pong Automated Referee Kit
 
-> A 14-sensor, triple-ESP32 distributed system that referees table-tennis matches in real time using acoustic TDOA positioning, piezo vibration sensing, and an ESP-NOW microsecond-latency mesh.
+> A 15-sensor, triple-ESP32 distributed system that referees table-tennis matches in real time using acoustic TDOA positioning, piezo vibration sensing, and an ESP-NOW microsecond-latency mesh with a temp/pressure/humidity sensor for real time calibration.
 
 ---
 
 ## Architecture
 
 ```
-┌───────────────────┐   ESP-NOW   ┌───────────────────┐
+┌───────────────────┐  cat-cable  ┌───────────────────┐
 │   S3 Alpha        │◄───────────►│   Master WROOM    │
-│  (Acoustic Brain  │             │  (Game Engine)     │
+│  (Acoustic Brain  │             │  (Game Engine)    │
 │   + Side-A Piezos)│             │  BME680 · Fan     │
 │  4× INMP441 Mics  │             │  MAX98357A + SD   │
 │  4× LM393 Piezos  │             │  300× WS2812B     │
 └───────────────────┘             │  WiFi AP + WebUI  │
                                   └────────▲──────────┘
-┌───────────────────┐   ESP-NOW            │
+┌───────────────────┐   cat-cable          │
 │   S3 Beta         │◄────────────────────►│
 │  (Side-B + Net)   │
 │  4× LM393 Piezos  │
 │  2× LM393 Net     │
 └───────────────────┘
 ```
+## Why and how I got the idea?
+Since last summer, I tried to create a ping-pong referee, but it was camera-based, and I downloaded a large dataset (https://lab.osai.ai/) and trained an AI model for weeks, only to fail miserably at the end.
 
-## Quick Start
+months later, I was waiting for my turn to play, and i thought, "Can I close my eyes and through hearing accuratly tell the score and whichs turn?" So I closed my eyes and was able to accurately tell what was happening all of the time, even when my friend tried to trick me, but he couldn't.
+
+At the moment, I remembered I wanted to create an acoustic camera for the science fair at our school, so I thought, why not create an acoustic ping-pong referee!
+
+
+## Quick Start (how to use)
 
 ### 1. Get MAC Addresses
 
@@ -204,3 +211,4 @@ Recommended format: **16-bit PCM, mono, 16 kHz** (or 22.05 kHz).
 ## License
 
 MIT — Build cool things. 🏓
+
