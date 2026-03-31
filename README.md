@@ -47,13 +47,23 @@ SPARK is an automatic table-tennis referee that uses no cameras. It uses 4 MEMS 
 
 ## 3D Model
 
-> ⚠️ Full assembly screenshot coming soon — individual part models below.
 
 All CAD source files (.step + .f3d) are in the [`/cad`](./cad) folder.
-
+![full assembly](https://github.com/user-attachments/assets/11f8baba-dc9f-4f11-876d-fe365effce73)
 ![ESP Case](https://github.com/user-attachments/assets/ff99ffbb-f727-4f0a-9f1a-e87f7ed1b32d)
 ![Mic Holder](https://github.com/user-attachments/assets/1c2541c9-c1d7-45f2-b686-679fba55c55a)
 ![Sensor Holder](https://github.com/user-attachments/assets/d8f4ef49-822e-4cbb-b0ba-2555748f1e1a)
+
+
+assembly: 
+![image](https://github.com/user-attachments/assets/d4f0d76c-905b-478f-9bce-60c68b9a5c94)
+![image (1)](https://github.com/user-attachments/assets/38974f01-7fa1-447a-9c61-3b93be09108c)
+![image (3)](https://github.com/user-attachments/assets/f32790f5-c323-4f95-909e-2ed0cc442281)
+![image (2)](https://github.com/user-attachments/assets/e00dc4c4-7a35-4d9b-a63b-e92ed5d35a35)
+
+
+
+
 
 ---
 
