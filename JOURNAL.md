@@ -1,10 +1,9 @@
-[SCH_New-Project_2026-01-07.json](https://github.com/user-attachments/files/28225943/SCH_New-Project_2026-01-07.json)---
-
-## title: "S.P.A.R.K."
+---
+title: "S.P.A.R.K."
 author: "ahed9x"
 description: "ping pong no camera refree"
 created_at: "2026-01-07"
-
+---
 # Collected the BOM
 
 i collected everything i will need for this one and understood all the concepts for it to work, it is medium in difficulty but highly rewarding and better than using a camera
