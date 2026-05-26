@@ -240,8 +240,9 @@ ASSEMBLY - [https://github.com/ahed9x/S.P.A.R.K./blob/main/cad/Full%20Assembly.z
 
 - I won't buy the acoustic because it feels very irrelevant and just to make it clear, even though the problem can be solved via code, it will add latency, which can differ in a sport like ping pong. 
 - Second, the latest uploaded architecture with 3 esps will be used to ensure accuracy and speed.
-- the total final cost will be around 3152 egp or 61 usd at this time may 25 of 2026 which may fluctuate +-20usd
-<img width="689" height="370" alt="image" src="https://github.com/user-attachments/assets/e498c9b0-fe17-4630-af87-0fc79f731812" />
+- the total final cost will be around 6492 egp or 125 usd at this time may 25 of 2026 which may fluctuate +-20usd
+<img width="683" height="332" alt="image" src="https://github.com/user-attachments/assets/3203ad2d-10b0-433d-9db7-039eac1c0b11" />
+
 
   
 
