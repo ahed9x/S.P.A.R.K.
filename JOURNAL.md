@@ -6,7 +6,7 @@ created_at: "2026-01-07"
 ---
 # Collected the BOM
 
-i collected everything i will need for this one and understood all the concepts for it to work, it is medium in difficulty but highly rewarding and better than using a camera
+i collected everything i will need for this one and understood all the concepts for it to work, it is medium in difficulty but highly rewarding and better than using a camera because cameras have frame rate limits and computer vision adds way too much processing lag. acoustic time of flight on edge microcontrollers is way faster for catching a 100km/h ball without needing a crazy gpu.
 
 1x WS2812 Addressable RGB LED Strip (5m) — 750.00 EGP
 1x Power Supply 12V 30A — 625.00 EGP
@@ -34,8 +34,6 @@ Total: 5,414.50 EGP
 
 <img width="1275" height="197" alt="image" src="https://github.com/user-attachments/assets/56187043-faa6-422f-9d9f-09f3142b097c" />
 
-
-
 **Total time spent: 2.5 hours**
 
 # Creating the sketch
@@ -43,12 +41,9 @@ Total: 5,414.50 EGP
 SCHNew-Project2026-01-07
 
 SchematicNew-Project2026-01-07
-i created everything i am nearly ready to start building in real life after i finish the basic code
-
+i created everything i am nearly ready to start building in real life after i finish the basic code. realized using analog pins for the piezos would take too many milliseconds for the esp to poll the voltage, so using lm393 modules instead to get instant digital hardware interrupts so the esp doesn't waste processing cycles.
 
 [Schematic_New-Project_2026-01-07.pdf](https://github.com/user-attachments/files/28225953/Schematic_New-Project_2026-01-07.pdf)
-
-
 
 <img width="1169" height="827" alt="image" src="https://github.com/user-attachments/assets/815550c6-a040-4ece-beaa-67002bae0bf7" />
 
@@ -58,21 +53,20 @@ i created everything i am nearly ready to start building in real life after i fi
 
 # Firmware
 
-using GitHub Copilot and gemini i created the first script that is ready for deployment along with the flutter app in seconds and these will maybe see some modifications when creating. also I removed 1 esp and 2 mics from the project because they are unnecessary.
+using GitHub Copilot and gemini i created the first script that is ready for deployment along with the flutter app in seconds and these will maybe see some modifications when creating. i mainly used the ai to scaffold the basic flutter ui boilerplate, but the actual i2s dma buffers and microsecond hardware interrupts had to be manually hand-coded because the ai doesn't understand the strict physics timing needed for the sound waves. also I removed 1 esp and 2 mics from the project because they are unnecessary.
 
 <img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/6c917522-86a3-4528-9dbf-b276a0aacec7" />
-
 
 **Total time spent: 0.2 hours**
 
 # Rethinking the design
 
 I heavily researched and will shift to a completely new plan:
-first we will use 3 esps 1 for 4 mics and 4 piezos, and another for 6 piezos with a master one for the game logic, sd, speaker, and lights. Further, we added an SD card and a temperature, humidity, and pressure sensor all in one.
+first we will use 3 esps 1 for 4 mics and 4 piezos, and another for 6 piezos with a master one for the game logic, sd, speaker, and lights. Further, we added an SD card and a temperature, humidity, and pressure sensor all in one (since the speed of sound changes based on temperature, the math needs dynamic adjusting).
 also i figuered out 50m of LEDs is an overkill, and I shall not ask for that here.
 
 why?
-by using 3 esps we ensure the detection is completely separate from anything else. Ping-pong is a very fast game the ball can reach up to 100+km/h, which needs insanely fast detection, so using only 2 ESPs will lead to sometimes the LED control or sound control interfering with gameplay detection, possibly missing hits. Second, could you explain why one ESP uses two mics and five piezos while the other uses the same? the answer is fairly simple the mic system is seperate from the piezo system and shall be monitored alone so dividing both on both esps will force us to create a insanely complex highway connection between both esps and we must ensure clock sync then; instead if we make 1 esp calculate all mic input and the right side of the table piezo grid and one control the elft side along with net we remmove all the hurdle of syncing.
+by using 3 esps we ensure the detection is completely separate from anything else. Ping-pong is a very fast game the ball can reach up to 100+km/h, which needs insanely fast detection, so using only 2 ESPs will lead to sometimes the LED control or sound control interfering with gameplay detection, possibly missing hits. Second, could you explain why one ESP uses two mics and five piezos while the other uses the same? the answer is fairly simple the mic system is seperate from the piezo system and shall be monitored alone so dividing both on both esps will force us to create a insanely complex highway connection between both esps and we must ensure clock sync then; instead if we make 1 esp calculate all mic input and the right side of the table piezo grid and one control the elft side along with net we remmove all the hurdle of syncing because all 4 mics will now share the exact same internal hardware master clock, which is literally the only way the time-of-flight math works without drifting.
 
 <img width="644" height="890" alt="image" src="https://github.com/user-attachments/assets/f5a081f8-d062-430b-a633-7c1ccb02e2d3" />
 
@@ -84,23 +78,21 @@ by using 3 esps we ensure the detection is completely separate from anything els
 
 # Designing ESP Case
 
-In Fusion 360, I designed a case with a mini fan for the ESP. For the lowest noise, the fans will work only if heat is detected not to disturb players; however, the design might still need more tweaking.
+In Fusion 360, I designed a case with a mini fan for the ESP. For the lowest noise, the fans will work only if heat is detected not to disturb players and because any extra fan motor vibrations vibrating through the table could accidentally trigger the piezos and mess up the hardware interrupts; however, the design might still need more tweaking.
 
 <img width="1519" height="889" alt="image" src="https://github.com/user-attachments/assets/1570199f-140d-40d9-9981-bc07872b1047" />
 <img width="1519" height="843" alt="image" src="https://github.com/user-attachments/assets/9892eb7b-c73c-4092-81e2-0f98671edb0a" />
 <img width="1519" height="889" alt="image" src="https://github.com/user-attachments/assets/f429380a-5f6f-40a5-84e1-0fcfc444610d" />
 <img width="1522" height="893" alt="image" src="https://github.com/user-attachments/assets/a7164d5d-9df9-4f2b-84ea-d90d3d17751e" />
 
-
 **Total time spent: 2.0 hours**
 
 # Finished the new code
 
-i created the initial code but it still also needs high refinement when all components arrive to make it perfect through tuning.
+i created the initial code but it still also needs high refinement when all components arrive to make it perfect through tuning because filtering out false bounces via software introduces too much latency, so I am going to rely mostly on tuning the physical potentiometers on the LM393 boards.
 <img width="1252" height="698" alt="image" src="https://github.com/user-attachments/assets/2aad1dbc-b326-49ea-8400-a6765a39dec9" />
 
 <img width="1919" height="1022" alt="image" src="https://github.com/user-attachments/assets/00ebc7cf-d72e-4869-8f9a-2c209e390c9b" />
-
 
 ...
 
@@ -113,15 +105,11 @@ I uploaded everything to GitHub, and the repo is fully ready. I even created the
 <img width="1919" height="814" alt="image" src="https://github.com/user-attachments/assets/7acf267a-c0cf-496a-9dbf-9d2efce7c4bb" />
 <img width="1167" height="803" alt="image" src="https://github.com/user-attachments/assets/4d7fe816-c77d-46b0-9f26-81952132d4cf" />
 
-
-
 **Total time spent: 1.0 hour**
 
 # Wiring and final details
 
-
 <img width="678" height="416" alt="image" src="https://github.com/user-attachments/assets/d0ad1a7d-5fd6-43a6-b101-2e2a72cf1753" />
-
 
 The new total project cost is 8720egp or 175 USD, including shipping
 
@@ -157,20 +145,19 @@ Source -> 15A PSU GND & ESP32 GND
 Fan Red Wire (+) -> 15A PSU 5V
 Power & CAT5E Rules
 ALL components (ESP32s, modules, shifter, MOSFET, LED strip) MUST share the 15A PSU Ground (-).
-CAT5E UART pairs: Orange = TX + GND. Green = RX + GND.
+CAT5E UART pairs: Orange = TX + GND. Green = RX + GND. had to do this because running raw data wires across a 2.7m table turns them into giant antennas that pick up massive emi static from the 15A psu, so twisting them with ground inside the ethernet cable physically shields the signals.
 
 **Total time spent: 1.0 hour**
 
 # Designing all Cad Parts Needed
 
 I designed almost all cad parts needed to hold the electronics. Other electronics will be directly screwed or taped to the table and all CAD models will be on GitHub soon:
-!!UPDATE: I uploaded them on GitHub [https://github.com/ahed9x/S.P.A.R.K./tree/main/cad](https://github.com/ahed9x/S.P.A.R.K./tree/main/cad)
+!!UPDATE: I uploaded them on GitHub [https://github.com/ahed9x/S.P.A.R.K./tree/main/cad](https://github.com/ahed9x/S.P.A.R.K./tree/main/cad). realized i couldn't just mount the mics deep under the table either because the thick wooden edge creates an acoustic shadow that delays the sound wave from reaching it, so the custom fusion 360 brackets extend to keep the mic entry hole perfectly flush with the surface.
 
 <img width="489" height="401" alt="image (5)" src="https://github.com/user-attachments/assets/f310c29b-4d8c-4878-a4b3-2b3db8daf084" />
 <img width="569" height="469" alt="image (6)" src="https://github.com/user-attachments/assets/d0c34816-cb35-4c0c-8025-8ae84fc97244" />
 <img width="775" height="703" alt="image (7)" src="https://github.com/user-attachments/assets/b7a10b85-192f-44d8-b10d-6e866e3f1272" />
 <img width="1041" height="613" alt="image" src="https://github.com/user-attachments/assets/8d906432-5a4b-4101-aae7-1c9533202b04" />
-
 
 **Total time spent: 2.0 hours**
 
@@ -187,7 +174,6 @@ core features:
 
 <img width="1282" height="717" alt="Untitled-2026-03-07-0833" src="https://github.com/user-attachments/assets/d2cac3a9-b04b-4d05-b81f-3d0874467d90" />
 
-
 **Total time spent: 1.0 hour**
 
 # Creating new wiring schematic
@@ -203,9 +189,6 @@ SCHNew-Projecterewrewrwer2026-03-12 (1)
 
 <img width="2000" height="1416" alt="Schematic_New-Projecterewrewrwer_2026-03-12 (1)" src="https://github.com/user-attachments/assets/93467e92-3fbf-480d-89c4-79d21026b6f9" />
 
-
-
-
 **Total time spent: 3.0 hours**
 
 # Finished the full CAD assembly
@@ -216,8 +199,6 @@ I finished the final full CAD assembly and noted that we can't poke holes and sc
 <img width="1919" height="1024" alt="image (2)" src="https://github.com/user-attachments/assets/219bbfd1-774d-4021-9be7-62cfae1d022e" />
 <img width="1919" height="1030" alt="image (4)" src="https://github.com/user-attachments/assets/af176bb5-7298-4539-bda1-0d2870ed8dee" />
 <img width="1919" height="1032" alt="image (3)" src="https://github.com/user-attachments/assets/915213c1-d3eb-4ac6-bced-cd6b793d6b7e" />
-
-
 
 **Total time spent: 1.0 hour**
 
@@ -235,8 +216,6 @@ ASSEMBLY - [https://github.com/ahed9x/S.P.A.R.K./blob/main/cad/Full%20Assembly.z
 
 <img width="1919" height="901" alt="image" src="https://github.com/user-attachments/assets/df4b7dc5-84f3-4c2f-8ca3-74ea7426d71b" />
 
-
-
 **Total time spent: 0.1 hours**
 
 # Summary
@@ -245,11 +224,3 @@ ASSEMBLY - [https://github.com/ahed9x/S.P.A.R.K./blob/main/cad/Full%20Assembly.z
 - Second, the latest uploaded architecture with 3 esps will be used to ensure accuracy and speed.
 - The total final cost will be around 6492 egp or 125 USD at this time, May 25, 2026, which may fluctuate +-20usd
 <img width="683" height="332" alt="image" src="https://github.com/user-attachments/assets/3203ad2d-10b0-433d-9db7-039eac1c0b11" />
-
-
-  
-
-
-
-**Total time spent: 0.1 hours**
-
