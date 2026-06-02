@@ -71,6 +71,9 @@ I heavily researched and will shift to a completely new plan:
 first we will use 3 esps 1 for 4 mics and 4 piezos, and another for 6 piezos with a master one for the game logic, sd, speaker, and lights. Further, we added an SD card and a temperature, humidity, and pressure sensor all in one.
 also i figuered out 50m of LEDs is an overkill, and I shall not ask for that here.
 
+why?
+by using 3 esps we ensure the detection is completely separate from anything else. Ping-pong is a very fast game the ball can reach up to 100+km/h, which needs insanely fast detection, so using only 2 ESPs will lead to sometimes the LED control or sound control interfering with gameplay detection, possibly missing hits. Second, could you explain why one ESP uses two mics and five piezos while the other uses the same? the answer is fairly simple the mic system is seperate from the piezo system and shall be monitored alone so dividing both on both esps will force us to create a insanely complex highway connection between both esps and we must ensure clock sync then; instead if we make 1 esp calculate all mic input and the right side of the table piezo grid and one control the elft side along with net we remmove all the hurdle of syncing.
+
 <img width="644" height="890" alt="image" src="https://github.com/user-attachments/assets/f5a081f8-d062-430b-a633-7c1ccb02e2d3" />
 
 <img width="649" height="793" alt="image" src="https://github.com/user-attachments/assets/475fd9cf-63ff-40f7-bd0c-a5b4ca09adc6" />
@@ -81,7 +84,7 @@ also i figuered out 50m of LEDs is an overkill, and I shall not ask for that her
 
 # Designing ESP Case
 
-In Fusion 360, I designed a case with a mini fan for the ESP, but for the lowest noise, the fans will work only if heat is detected, but still, the design might need more tweaking.
+In Fusion 360, I designed a case with a mini fan for the ESP. For the lowest noise, the fans will work only if heat is detected not to disturb players; however, the design might still need more tweaking.
 
 <img width="1519" height="889" alt="image" src="https://github.com/user-attachments/assets/1570199f-140d-40d9-9981-bc07872b1047" />
 <img width="1519" height="843" alt="image" src="https://github.com/user-attachments/assets/9892eb7b-c73c-4092-81e2-0f98671edb0a" />
@@ -93,7 +96,7 @@ In Fusion 360, I designed a case with a mini fan for the ESP, but for the lowest
 
 # Finished the new code
 
-i created the initial code but it still also needs high refinement when all equipment is equipped to make it perfect through dedication and tuning.
+i created the initial code but it still also needs high refinement when all components arrive to make it perfect through tuning.
 <img width="1252" height="698" alt="image" src="https://github.com/user-attachments/assets/2aad1dbc-b326-49ea-8400-a6765a39dec9" />
 
 <img width="1919" height="1022" alt="image" src="https://github.com/user-attachments/assets/00ebc7cf-d72e-4869-8f9a-2c209e390c9b" />
@@ -103,9 +106,9 @@ i created the initial code but it still also needs high refinement when all equi
 
 **Total time spent: 1.0 hour**
 
-# Creating the github repo
+# Creating the GitHub repo
 
-I uploaded everything to the github and repo is fully ready, and I even created the BOM csv with links and prices, and use highly detailed makeing the project nearly complete
+I uploaded everything to GitHub, and the repo is fully ready. I even created the BOM CSV with links and prices, and used highly detailed information, making the project nearly complete
 
 <img width="1919" height="814" alt="image" src="https://github.com/user-attachments/assets/7acf267a-c0cf-496a-9dbf-9d2efce7c4bb" />
 <img width="1167" height="803" alt="image" src="https://github.com/user-attachments/assets/4d7fe816-c77d-46b0-9f26-81952132d4cf" />
@@ -120,7 +123,7 @@ I uploaded everything to the github and repo is fully ready, and I even created 
 <img width="678" height="416" alt="image" src="https://github.com/user-attachments/assets/d0ad1a7d-5fd6-43a6-b101-2e2a72cf1753" />
 
 
-The new total project cost is 8720egp or 175 usd, including shipping
+The new total project cost is 8720egp or 175 USD, including shipping
 
 Master Brain (ESP32 WROOM 32)
 BME680: SDA -> 21 | SCL -> 22
@@ -160,8 +163,8 @@ CAT5E UART pairs: Orange = TX + GND. Green = RX + GND.
 
 # Designing all Cad Parts Needed
 
-I designed almost all cad parts needed to hold the electronics. Other electronics will be directly screwed or taped to the table and all cad mdels will be on github soon:
-!!UPDATE i uploaded them on github [https://github.com/ahed9x/S.P.A.R.K./tree/main/cad](https://github.com/ahed9x/S.P.A.R.K./tree/main/cad)
+I designed almost all cad parts needed to hold the electronics. Other electronics will be directly screwed or taped to the table and all CAD models will be on GitHub soon:
+!!UPDATE: I uploaded them on GitHub [https://github.com/ahed9x/S.P.A.R.K./tree/main/cad](https://github.com/ahed9x/S.P.A.R.K./tree/main/cad)
 
 <img width="489" height="401" alt="image (5)" src="https://github.com/user-attachments/assets/f310c29b-4d8c-4878-a4b3-2b3db8daf084" />
 <img width="569" height="469" alt="image (6)" src="https://github.com/user-attachments/assets/d0c34816-cb35-4c0c-8025-8ae84fc97244" />
@@ -173,7 +176,7 @@ I designed almost all cad parts needed to hold the electronics. Other electronic
 
 # Explaining SPARK
 
-So briefly, in this project, I aim to make use of the time of arrival of the sound emitted by the ping pong ball to calculate where it hit on the table/ paddle in the air and thus creating a auto ping pong refree gamifying the process through LEDs, speakers, and the app.
+So briefly, in this project, I aim to make use of the time of arrival of the sound emitted by the ping pong ball to calculate where it hit on the table/ paddle in the air, thus creating an auto ping pong referee, gamifying the process through LEDs, speakers, and the app.
 core features:
 1- on table ball hit mapping (x,y coordinates where the ball hits table)
 2- in air paddle hit ball mapping (x,y,z coordinates where player hit ball)
@@ -238,9 +241,9 @@ ASSEMBLY - [https://github.com/ahed9x/S.P.A.R.K./blob/main/cad/Full%20Assembly.z
 
 # Summary
 
-- I won't buy the acoustic because it feels very irrelevant and just to make it clear, even though the problem can be solved via code, it will add latency, which can differ in a sport like ping pong. 
+- I won't buy the acoustic because it feels very irrelevant, and just to make it clear, even though the problem can be solved via code, it will add latency, which can differ in a sport like ping pong. 
 - Second, the latest uploaded architecture with 3 esps will be used to ensure accuracy and speed.
-- the total final cost will be around 6492 egp or 125 usd at this time may 25 of 2026 which may fluctuate +-20usd
+- The total final cost will be around 6492 egp or 125 USD at this time, May 25, 2026, which may fluctuate +-20usd
 <img width="683" height="332" alt="image" src="https://github.com/user-attachments/assets/3203ad2d-10b0-433d-9db7-039eac1c0b11" />
 
 
