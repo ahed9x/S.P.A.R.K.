@@ -241,6 +241,11 @@ As github shows, i started this project a couple of months ago and in egypt stoc
 
 <img width="427" height="885" alt="image" src="https://github.com/user-attachments/assets/31135f24-ad79-454c-ace2-5192f8d2392a" />
 
+the new total is 6688.5 egp or around 129 usd
+
+<img width="671" height="382" alt="image" src="https://github.com/user-attachments/assets/2907a5c2-4902-4828-a158-2f02b2b656fe" />
+
+
 
 **Total time spent: 3.5 hours**
 
