@@ -224,3 +224,26 @@ ASSEMBLY - [https://github.com/ahed9x/S.P.A.R.K./blob/main/cad/Full%20Assembly.z
 - Second, the latest uploaded architecture with 3 esps will be used to ensure accuracy and speed.
 - The total final cost will be around 6492 egp or 125 USD at this time, May 25, 2026, which may fluctuate +-20usd
 <img width="683" height="332" alt="image" src="https://github.com/user-attachments/assets/3203ad2d-10b0-433d-9db7-039eac1c0b11" />
+
+**Total time spent: 0.1 hours**
+
+
+
+# Edits
+
+As github shows, i started this project a couple of months ago and in egypt stocks are very fluctuating, for example, the esp s3 is no more in stock and isnt in any electronics store here except a similar version that has the same capabilities but is in the Arduino Uno R3 PCB design so I updated the cart to the latest in-stock stuff and switched some things to accommodate for no longer avaliable stuff.
+
+<img width="946" height="372" alt="image" src="https://github.com/user-attachments/assets/d7354913-b6bc-4eda-9a2c-1279f9cded65" />
+
+<img width="1300" height="577" alt="image" src="https://github.com/user-attachments/assets/8a1fd690-5c4e-4910-a2e2-a280d71a3da5" />
+
+<img width="986" height="631" alt="image" src="https://github.com/user-attachments/assets/47330633-b86b-42d4-a8ef-771061cc77ef" />
+
+<img width="427" height="885" alt="image" src="https://github.com/user-attachments/assets/31135f24-ad79-454c-ace2-5192f8d2392a" />
+
+
+**Total time spent: 3.5 hours**
+
+
+
+
